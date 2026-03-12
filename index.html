@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Precast - Construction Accelerated</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Smooth transition for the background images */
+        .fade-slide {
+            transition: opacity 1.5s ease-in-out;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+        }
+        .fade-slide.active {
+            opacity: 0.6; /* Adjust this to make text more readable */
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+    <section class="relative h-screen flex items-center justify-center text-white text-center bg-gray-900 overflow-hidden">
+        
+        <div id="bg-slider">
+            <img src="S1.jpg" class="fade-slide active" alt="Slide 1">
+            <img src="S2.jpg" class="fade-slide" alt="Slide 2">
+            <img src="S3.jpg" class="fade-slide" alt="Slide 3">
+            <img src="S4.jpg" class="fade-slide" alt="Slide 4">
+        </div>
+
+        <div class="relative z-10 px-4 mt-[300px]"> <h1 class="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+            Construction,<br>Accelerated by Intelligence
+        </h1>
+        <button class="bg-white text-black px-8 py-3 font-bold hover:bg-gray-200 transition shadow-lg">
+            GET IN TOUCH
+        </button>
+    </div>
+
+        <div class="absolute top-8 left-8 z-20">
+    <img src="stellar logo.png" alt="Stellar Logo" class="h-8 w-auto object-contain">
+</div>
+        
+        <div class="absolute bottom-10 flex gap-4 z-20">
+            <button onclick="prevSlide()" class="p-2 bg-white/20 hover:bg-white/40 rounded-full transition"><i class="fas fa-arrow-left"></i></button>
+            <button onclick="nextSlide()" class="p-2 bg-white/20 hover:bg-white/40 rounded-full transition"><i class="fas fa-arrow-right"></i></button>
+        </div>
+    </section>
+
+    <section class="flex flex-col md:flex-row bg-black text-white items-center min-h-[500px]">
+    
+    <div class="w-full md:w-1/2 p-12 md:p-20 flex flex-col justify-center">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 leading-tight tracking-tight max-w-lg">
+            Backed by advanced machinery, skilled manpower, and a robust quality assurance system.
+        </h2>
+        
+        <p class="text-gray-400 leading-relaxed text-base max-w-md">
+            With a focus on efficiency, sustainability, and quality, Stellar Precast Factory is well-positioned to support infrastructure and real estate projects with reliable and scalable precast solutions. Whether for residential, commercial, or industrial developments, we bring precision and speed to every build.
+        </p>
+    </div>
+
+    <div class="w-full md:w-1/2 p-12 md:p-24"> 
+        <div class="relative overflow-hidden rounded-sm">
+            <img src="precast right.jpg" class="w-full h-auto object-cover border border-white/10" alt="Stellar Construction">
+        </div>
+    </div>
+</section>
+
+    <section class="py-24 px-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 items-start">
+        
+        <div class="md:col-span-1">
+            <h2 class="text-4xl font-bold leading-tight">
+                Products<br>we offer
+            </h2>
+        </div>
+        
+       <div class="md:col-span-2 md:-ml-10 md:pt-2"> 
+            <p class="text-gray-600 text-[1.15rem] leading-[1.6] max-w-[90%] font-regular">
+                We provide a complete structural envelope that significantly accelerates project timelines, reduces site waste, and ensures uncompromising structural integrity for global-scale infrastructure.
+            </p>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="group">
+            <div class="overflow-hidden rounded-sm mb-6 aspect-[4/3] bg-gray-100">
+                <img src="S1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <h3 class="font-regular text-xl uppercase tracking-tight">Precast Wall</h3>
+        </div>
+        
+        <div class="group">
+            <div class="overflow-hidden rounded-sm mb-6 aspect-[4/3] bg-gray-100">
+                <img src="S2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <h3 class="font-regular text-xl uppercase tracking-tight">Staircases</h3>
+        </div>
+        
+        <div class="group">
+            <div class="overflow-hidden rounded-sm mb-6 aspect-[4/3] bg-gray-100">
+                <img src="S3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <h3 class="font-regular text-xl uppercase tracking-tight">Hollow Core Slabs</h3>
+        </div>
+    </div>
+</section>
+
+    <script>
+        const slides = document.querySelectorAll('.fade-slide');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        // Change slide every 5 seconds
+        setInterval(nextSlide, 5000);
+    </script>
+
+    <section class="bg-black text-white py-20 px-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12">Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <img src="1423.jpg" class="w-full h-80 object-cover mb-4" alt="Stellar 1425">
+                    <p class="uppercase tracking-widest text-sm">Stellar 1423</p>
+                </div>
+                <div>
+                    <img src="1422.jpeg" class="w-full h-80 object-cover mb-4" alt="Stellar 1423">
+                    <p class="uppercase tracking-widest text-sm">Stellar 1422</p>
+                </div>
+                <div>
+                    <img src="StellarOne.JPG" class="w-full h-80 object-cover mb-4" alt="Residential">
+                    <p class="uppercase tracking-widest text-sm">Stellar One (Residential)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <div class="banner-container">
+  <img src="Infographic.png" alt="Why Precast Infographic" class="infographic-banner">
+</div>
+
+<style>
+  .banner-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    background-color: #ffffff; /* Matches the image background */
+    overflow: hidden;
+  }
+
+  .infographic-banner {
+    max-width: 100%;   /* Ensures it doesn't overflow the screen */
+    height: auto;      /* Keeps the proportions perfect */
+    display: block;
+    object-fit: contain;
+    /* Optional: adds a slight fade-in effect */
+    animation: fadeIn 1.2s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Mobile optimization: ensures it doesn't get too tiny */
+  @media (max-width: 768px) {
+    .banner-container {
+      padding: 20px 10px;
+    }
+    .infographic-banner {
+      width: 100%;
+    }
+  }
+</style>
+
+<footer class="relative h-96 flex items-end">
+        <img src="footer.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Factory">
+        <div class="relative z-10 bg-white/90 p-8 m-8 max-w-sm shadow-xl">
+            <h3 class="font-bold mb-2">Contact us:</h3>
+            <p class="text-sm">Corporate Office: C-56/9, Sector-62, Noida-201309</p>
+            <p class="text-sm">Email: info@stellargroupindia.com</p>
+            <p class="text-sm font-bold mt-2">Mob No: +91-9650033956</p>
+        </div>
+    </footer>
+</body>
+</html>
