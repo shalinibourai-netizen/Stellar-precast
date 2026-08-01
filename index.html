@@ -20,7 +20,113 @@
         .fade-slide.active {
             opacity: 0.6; /* Adjust this to make text more readable */
         }
-    </style>
+/* ==================== COOKIE BANNER & MODAL STYLES ==================== */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fdfaf5;
+            color: #333333;
+            padding: 14px 20px;
+            border-top: 1px solid #e2dad0;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+            z-index: 99999;
+            font-family: sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .cookie-banner-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-cookie-accept {
+            background: #c5a059;
+            color: #ffffff;
+            border: none;
+            padding: 7px 18px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .btn-cookie-accept:hover {
+            background: #b58f48;
+        }
+
+        .btn-cookie-settings {
+            background: transparent;
+            color: #666;
+            border: 1px solid #ccc;
+            padding: 6px 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cookie-settings:hover {
+            border-color: #c5a059;
+            color: #c5a059;
+        }
+
+        /* Cookie Preference Modal */
+        #cookie-modal {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100000;
+        }
+
+        .cookie-modal-box {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 25px 30px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            color: #333;
+            font-family: sans-serif;
+        }
+
+        .cookie-option {
+            background: #fdfaf5;
+            border: 1px solid #eae5dc;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 12px 0;
+        }
+
+        .cookie-option label {
+            display: block;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .cookie-option span {
+            display: block;
+            font-size: 11px;
+            font-weight: normal;
+            color: #777;
+            margin-top: 3px;
+        }
+        </style>
 </head>
 <body class="bg-white text-gray-800 font-sans">
 
@@ -229,10 +335,91 @@
             <p class="text-xs mt-2 text-gray-600">© 2026 Stellar Precast. All rights reserved | <a href="privacy.html" class="hover:underline">Privacy Policy</a></p>
         </div>
     </footer>
-    <div id="cookie-banner" style="position: fixed; bottom: 0; width: 100%; background: #fdfaf5; color: #333; padding: 15px; text-align: center; border-top: 1px solid #e5e5e5; z-index: 1000; font-family: sans-serif; font-size: 14px;">
-    We use cookies to ensure you get the best experience on our website. 
-    <a href="privacy.html" style="color: #c5a059; text-decoration: underline;">Learn more</a>
-    <button onclick="document.getElementById('cookie-banner').style.display='none'" style="background: #c5a059; color: white; border: none; padding: 5px 15px; margin-left: 15px; cursor: pointer; border-radius: 4px;">Accept</button>
-</div>
+
+    <!-- ==================== COOKIE BANNER BAR ==================== -->
+    <div id="cookie-banner">
+        <div class="cookie-banner-inner">
+            <span>We use cookies to ensure you get the best experience on our website. <a href="privacy.html" style="color: #c5a059; text-decoration: underline;">Learn more</a></span>
+            <div style="display: flex; gap: 8px;">
+                <button onclick="acceptAllCookies()" class="btn-cookie-accept">Accept</button>
+                <button onclick="toggleCookieModal()" class="btn-cookie-settings">Customize</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== COOKIE PREFERENCES MODAL ==================== -->
+    <div id="cookie-modal" style="display: none;">
+        <div class="cookie-modal-box">
+            <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 8px;">Cookie Preferences</h3>
+            <p style="font-size: 13px; color: #666; margin-bottom: 16px;">Manage your cookie settings for Stellar Precast:</p>
+
+            <div class="cookie-option">
+                <label>
+                    <input type="checkbox" checked disabled> Essential Cookies
+                    <span>Necessary for basic site navigation and operational security.</span>
+                </label>
+            </div>
+
+            <div class="cookie-option">
+                <label>
+                    <input type="checkbox" id="analytics-cookies"> Analytics & Performance
+                    <span>Allows us to analyze site traffic to improve user experience.</span>
+                </label>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button onclick="saveCookiePreferences()" class="btn-cookie-accept" style="flex: 1;">Save & Apply</button>
+                <button onclick="toggleCookieModal()" style="background: #eee; border: none; padding: 7px 15px; border-radius: 4px; cursor: pointer;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Cookie Controller -->
+    <script>
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                let date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if (getCookie("sp_precast_consent")) {
+                document.getElementById("cookie-banner").style.display = "none";
+            }
+        });
+
+        function acceptAllCookies() {
+            setCookie("sp_precast_consent", "all", 365);
+            document.getElementById("cookie-banner").style.display = "none";
+        }
+
+        function toggleCookieModal() {
+            var modal = document.getElementById("cookie-modal");
+            modal.style.display = (modal.style.display === "none" || modal.style.display === "") ? "flex" : "none";
+        }
+
+        function saveCookiePreferences() {
+            var analytics = document.getElementById("analytics-cookies").checked;
+            setCookie("sp_precast_consent", analytics ? "analytics_allowed" : "essential_only", 365);
+            document.getElementById("cookie-banner").style.display = "none";
+            document.getElementById("cookie-modal").style.display = "none";
+        }
+    </script>
+    
 </body>
 </html>
